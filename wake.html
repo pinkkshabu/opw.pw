@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wake Lock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+<h1 id="status"></h1>
+<script>
+    async function wakeLock(){
+        let wakeLock = null;
+        try {
+            wakeLock = await navigator.wakeLock.request("screen");
+            Status.innerHTML = "Wake lock active";
+        } catch (err) {
+            Status.innerHTML = `${err.name}, ${err.message}`;
+        }
+    }
+    Status = document.querySelector('#status')
+    if ("wakeLock" in navigator) {
+        wakeLock()
+    } else {
+        Status.innerHTML = "Wake lock is not supported by this browser.";
+    }
+</script>
+</body>
+</html>
